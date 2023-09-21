@@ -1,0 +1,18 @@
+Timelog
+PROJECT NAME
+Rory McDermid
+2566302M
+SUPERVISOR NAME
+
+Guidance
+This file contains the time log for your project. It will be submitted along with your final dissertation.
+YOU MUST KEEP THIS UP TO DATE AND UNDER VERSION CONTROL.
+This timelog should be filled out honestly, regularly (daily) and accurately. It is for your benefit.
+Follow the structure provided, grouping time by weeks.  Quantise time to the half hour.
+
+Week 1
+18 Oct 2023
+1 hour meeting with supervisor (did not take minutes, make sure to take minutes next meeting)
+
+21 Oct 2023
+2 hour writing inital code for roles (need to get git fixed)
