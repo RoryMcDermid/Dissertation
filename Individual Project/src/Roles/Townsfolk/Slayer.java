@@ -1,7 +1,13 @@
-package Roles;
+package Roles.Townsfolk;
 
-public class Slayer extends SuperRole{
-    public Slayer(String roleNameIn, Boolean alignmentIn) {
-        super(roleNameIn, alignmentIn);
+import Roles.SuperRole;
+
+public class Slayer extends SuperRole {
+    public Slayer(String playerNameIn, Boolean alignmentIn) {
+        super(playerNameIn, alignmentIn);
+    }
+
+    public String getClassName(){
+        return "Slayer";
     }
 }

@@ -1,7 +1,13 @@
-package Roles;
+package Roles.Townsfolk;
 
-public class Investigator extends SuperRole{
-    public Investigator(String roleNameIn, Boolean alignmentIn) {
-        super(roleNameIn, alignmentIn);
+import Roles.SuperRole;
+
+public class Investigator extends SuperRole {
+    public Investigator(String playerNameIn, Boolean alignmentIn) {
+        super(playerNameIn, alignmentIn);
+    }
+
+    public String getClassName(){
+        return "Investigator";
     }
 }

@@ -1,7 +1,13 @@
-package Roles;
+package Roles.Demon;
 
-public class Imp extends SuperRole{
-    public Imp(String roleNameIn, Boolean alignmentIn) {
-        super(roleNameIn, alignmentIn);
+import Roles.SuperRole;
+
+public class Imp extends SuperRole {
+    public Imp(String playerNameIn, Boolean alignmentIn) {
+        super(playerNameIn, alignmentIn);
+    }
+
+    public String getClassName(){
+        return "Imp";
     }
 }

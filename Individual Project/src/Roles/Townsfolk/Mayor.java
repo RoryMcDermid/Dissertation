@@ -1,7 +1,13 @@
-package Roles;
+package Roles.Townsfolk;
 
-public class Mayor extends SuperRole{
-    public Mayor(String roleNameIn, Boolean alignmentIn) {
-        super(roleNameIn, alignmentIn);
+import Roles.SuperRole;
+
+public class Mayor extends SuperRole {
+    public Mayor(String playerNameIn, Boolean alignmentIn) {
+        super(playerNameIn, alignmentIn);
+    }
+
+    public String getClassName(){
+        return "Mayor";
     }
 }

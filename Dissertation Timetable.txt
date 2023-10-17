@@ -16,3 +16,21 @@ Week 1
 
 21 Sep 2023
 2 hour writing inital code for roles (need to get git fixed)
+
+27 Sep 2023 
+3 hour finish writing basics for roles, consider how to create gamestate
+
+30 Sep 2023
+2 hour looking into creation of grimore/creating logic chains (probably just make logic links, then have the chains form themselves)
+
+2 Oct 2023 
+1 hour considering how to check for if things are true or not
+
+3 Oct 2023 
+1 hour talking with Jessica about project and reading material
+
+10 Oct 2023
+Unable to meet with Jessica due to other assignments, will meet next week
+
+14 Oct 2023
+5 hours working on checkFact, working idea now, just needs fully implimented. also getClassName and a way to have setClass functionality working

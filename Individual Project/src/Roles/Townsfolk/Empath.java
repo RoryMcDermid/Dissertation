@@ -1,7 +1,13 @@
-package Roles;
+package Roles.Townsfolk;
 
-public class Empath extends SuperRole{
-    public Empath(String roleNameIn, Boolean alignmentIn) {
-        super(roleNameIn, alignmentIn);
+import Roles.SuperRole;
+
+public class Empath extends SuperRole {
+    public Empath(String playerNameIn, Boolean alignmentIn) {
+        super(playerNameIn, alignmentIn);
+    }
+
+    public String getClassName(){
+        return "Empath";
     }
 }

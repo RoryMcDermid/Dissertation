@@ -1,27 +1,14 @@
 import Roles.SuperRole;
 import Roles.Townsfolk.Chef;
 
-public class CreateGame
+public class Main
 {
 
     public static void main(String[] args) {
-        //args will be the number of intended players (currently 7)
 
-        SuperRole[] players = new SuperRole[Integer.parseInt(args[0])];
+        CreateGame play = new CreateGame();
 
-        players[0] = new Chef("John", true);
+        play.CreateGame(args);
 
-        for (SuperRole player:
-             players) {
-            System.out.println(player.getPlayerName());
-        }
-
-//        assign(players);
-
-    }
-
-    public SuperRole[] assign(SuperRole[] players){
-        //assign
-        return players;
     }
 }

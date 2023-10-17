@@ -1,7 +1,13 @@
-package Roles;
+package Roles.Townsfolk;
 
-public class Undertaker extends SuperRole{
-    public Undertaker(String roleNameIn, Boolean alignmentIn) {
-        super(roleNameIn, alignmentIn);
+import Roles.SuperRole;
+
+public class Undertaker extends SuperRole {
+    public Undertaker(String playerNameIn, Boolean alignmentIn) {
+        super(playerNameIn, alignmentIn);
+    }
+
+    public String getClassName(){
+        return "Undertaker";
     }
 }

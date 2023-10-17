@@ -3,38 +3,32 @@ package Roles;
 //Roles can be changed, e.g. imp can kill themselves to switch demonhood, need some way to transfer statistics to other role
 public abstract class SuperRole {
 
-    private String roleName;
+    private String playerName;
 
-    //True if they are good, False if they are evil
+    //True if they are good (townsfolk or outsider), False if they are evil (minion or demon)
     private Boolean alignment;
 
     //True if alive, False if dead
     private Boolean alive;
 
-    //knowledge, will want seperate storage? maybe multiple knowledge bases (things that are known to be true/false, known logic links
+    //knowledge, will want seperate storage? maybe multiple knowledge bases (things that are known to be true/false, known logic links, etc)
 
-    private SuperRole leftNeighbour;
 
-    private SuperRole rightNeighbour;
 
-    //Red Herring is something all roles need due to Fortune Teller
-    private Boolean redHerring;
+    public SuperRole(String playerNameIn, Boolean alignmentIn){
 
-    public SuperRole(String roleNameIn, Boolean alignmentIn){
-
-        roleName = roleNameIn;
+        playerName = playerNameIn;
         alignment = alignmentIn;
         alive = true;
-        redHerring = false;
 
     }
 
-    public String getRoleName(){
-        return roleName;
+    public String getPlayerName(){
+        return playerName;
     }
 
-    public void setRoleName(String roleNameIn){
-        roleName = roleNameIn;
+    public void setPlayerName(String playerNameIn){
+        playerName = playerNameIn;
     }
 
     public Boolean getAlignment(){
@@ -53,19 +47,51 @@ public abstract class SuperRole {
         alive = aliveIn;
     }
 
-    public void setLeftNeighbour(SuperRole leftNeighbourIn){
-        leftNeighbour = leftNeighbourIn;
+
+    public abstract String getClassName();
+
+    //to set a class, will just need to use a (x.getPlayerName(), x.getAlignment()) in the constructors
+
+
+    //no need for overload
+//    public boolean checkFact(String Variable, String Value){
+//
+//        return false;
+//    }
+//
+//    public boolean checkFact(String Variable, Boolean Value){
+//
+//        switch (Variable){
+//
+//    }
+
+    //here as a basecase
+    public boolean checkFact(String Variable, Object Value) {
+        switch (Variable){
+            case "playerName":
+                if(Value.equals(playerName)){
+                    return true;
+                }
+                break;
+            //getClassName should return the same as the name of the file/object of the given class
+            case "class":
+                if(Value.equals(this.getClassName())){
+                    return true;
+                }
+                break;
+            case "alignment":
+                if(Value == alignment){
+                    return true;
+                }
+                break;
+            case "alive":
+                if(Value == alive){
+                    return true;
+                }
+                break;
+        }
+        return false;
     }
 
-    public void setRightNeighbour(SuperRole rightNeighbourIn){
-        rightNeighbour = rightNeighbourIn;
-    }
 
-    public Boolean getRedHerring(){
-        return redHerring;
-    }
-
-    public void setRedHerring(Boolean redHerringIn){
-        redHerring = redHerringIn;
-    }
 }
