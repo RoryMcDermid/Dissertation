@@ -1,6 +1,5 @@
 create a file with all the true information (basically just everyone's roles), this will be the grimore that the spy gets to see
 need to make individual files of what specific characters know
 
-knowledge will be checked as true or false with a method in SuperClass that takes in the variable to be checked and the value it is suspected to be, it will return true if the value is correct and false if not
-maybe use tuples?
-how would a list of variables work to allow for checking?
+next make connections between theories
+

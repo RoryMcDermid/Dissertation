@@ -1,5 +1,10 @@
 package Roles;
 
+import knowledge.Connection;
+import knowledge.Theory;
+
+import java.util.ArrayList;
+
 //Roles can be changed, e.g. imp can kill themselves to switch demonhood, need some way to transfer statistics to other role
 public abstract class SuperRole {
 
@@ -12,16 +17,24 @@ public abstract class SuperRole {
     private Boolean alive;
 
     //knowledge, will want seperate storage? maybe multiple knowledge bases (things that are known to be true/false, known logic links, etc)
+    //maybe have each knowledge list as the same size, with empty values for each player
+    private ArrayList<Theory> knowledge = new ArrayList<Theory>();
+
+    private ArrayList<Connection> connections = new ArrayList<Connection>();
 
 
-
-    public SuperRole(String playerNameIn, Boolean alignmentIn){
+    public SuperRole(String playerNameIn, Boolean alignmentIn, int playerCount){
 
         playerName = playerNameIn;
         alignment = alignmentIn;
         alive = true;
 
+        for(int i = 0; i < (playerCount * 3); i++){
+            knowledge.add(new Theory(null, "", ""));
+        }
+
     }
+
 
     public String getPlayerName(){
         return playerName;
@@ -69,26 +82,14 @@ public abstract class SuperRole {
     public boolean checkFact(String Variable, Object Value) {
         switch (Variable){
             case "playerName":
-                if(Value.equals(playerName)){
-                    return true;
-                }
-                break;
+                return Value.equals(playerName);
             //getClassName should return the same as the name of the file/object of the given class
             case "class":
-                if(Value.equals(this.getClassName())){
-                    return true;
-                }
-                break;
+                return Value.equals(this.getClassName());
             case "alignment":
-                if(Value == alignment){
-                    return true;
-                }
-                break;
+                return Value == alignment;
             case "alive":
-                if(Value == alive){
-                    return true;
-                }
-                break;
+                return Value == alive;
         }
         return false;
     }

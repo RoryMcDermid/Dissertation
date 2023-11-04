@@ -8,8 +8,8 @@ public class FortuneTeller extends SuperRole {
 
     public String redHerring;
 
-    public FortuneTeller(String playerNameIn, Boolean alignmentIn) {
-        super(playerNameIn, alignmentIn);
+    public FortuneTeller(String playerNameIn, Boolean alignmentIn, int playerCount) {
+        super(playerNameIn, alignmentIn, playerCount);
     }
 
     public String getRedHerring(){

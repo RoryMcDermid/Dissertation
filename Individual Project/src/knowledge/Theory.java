@@ -10,6 +10,7 @@ public class Theory {
 
     private Object value;
 
+    //maybe have one theory with multiple values
     public Theory(SuperRole playerIn, String variableIn, Object valueIn){
         player = playerIn;
         variable = variableIn;
@@ -30,8 +31,21 @@ public class Theory {
     }
 
     public boolean checkTruth(){
-        System.out.println(value.getClass());
+        if (player == null){
+            return false;
+        }
         return player.checkFact(variable, value);
     }
 
+    public void setPlayer(SuperRole player) {
+        this.player = player;
+    }
+
+    public void setVariable(String variable) {
+        this.variable = variable;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
 }

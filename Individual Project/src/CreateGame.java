@@ -20,6 +20,8 @@ public class CreateGame {
 
         System.out.println(test.checkTruth());
 
+        //need some way to easily setup all of the basic truths (facts about self), as well as having some way to compare them
+
 
     }
 
