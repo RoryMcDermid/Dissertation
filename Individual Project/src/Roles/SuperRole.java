@@ -78,7 +78,6 @@ public abstract class SuperRole {
 //
 //    }
 
-    //here as a basecase
     public boolean checkFact(String Variable, Object Value) {
         switch (Variable){
             case "playerName":

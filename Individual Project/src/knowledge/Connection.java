@@ -74,4 +74,26 @@ public class Connection {
     public Connection equivalance(){
         return new Connection(theory2, theory1, relation);
     }
+
+    //used to check if this connection is correct, for testing purposes
+    public boolean isConnectionCorrect(){
+
+
+
+        boolean firstTheory = theory1.checkTruth();
+        boolean secondTheory = theory2.checkTruth();
+
+        switch(relation){
+            case(1):
+                //if they are both true or both false then a implies b so it is true
+                return firstTheory == secondTheory;
+            case(2):
+                //if a is true, then b must be false for the connection to be correct, and same with a being false, and b being true
+                return firstTheory != secondTheory;
+        }
+        //if there is no connection (relation is 0) or relation is outwith the bounds set, then there is no connection
+        return false;
+
+
+    }
 }
