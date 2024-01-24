@@ -2,7 +2,7 @@ Timelog
 PROJECT NAME
 Rory McDermid
 2566302M
-SUPERVISOR NAME
+Jessica Enright
 
 Guidance
 This file contains the time log for your project. It will be submitted along with your final dissertation.
@@ -34,3 +34,9 @@ Unable to meet with Jessica due to other assignments, will meet next week
 
 14 Oct 2023
 5 hours working on checkFact, working idea now, just needs fully implimented. also getClassName and a way to have setClass functionality working
+
+16 Oct 2023
+Got Theory fully working, overloading didn't work with it so had to alter checkFact to a single function
+
+20th Nov 2023
+Overworked with other courseworks, likely won't be doing this till after exams 
