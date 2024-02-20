@@ -5,7 +5,7 @@ public enum Trait {
     NAME,
     ALIGNMENT,
     ALIVE,
-    Class,
+    CLASS,
 
     //Fortune teller value
     REDHERRING

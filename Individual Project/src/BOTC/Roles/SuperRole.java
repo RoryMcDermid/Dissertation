@@ -4,17 +4,15 @@ import BOTC.Trait;
 import BOTC.knowledge.Connection;
 import BOTC.knowledge.Theory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 //BOTC.Roles can be changed, e.g. imp can kill themselves to switch demonhood, need some way to transfer statistics to other role
 public abstract class SuperRole {
 
     private String playerName;
 
-    //True if they are good (townsfolk or outsider), False if they are evil (minion or demon)
-    private Boolean alignment;
+    //0 if good, 1 if evil, -1 if unknown
+    private int alignment;
 
     //True if alive, False if dead
     private Boolean alive;
@@ -27,7 +25,7 @@ public abstract class SuperRole {
     private HashMap<String, HashMap<Trait, Connection>> connections;
 
 
-    public SuperRole(String playerNameIn, Boolean alignmentIn, int playerCount){
+    public SuperRole(String playerNameIn, int alignmentIn, int playerCount){
 
         playerName = playerNameIn;
         alignment = alignmentIn;
@@ -49,11 +47,11 @@ public abstract class SuperRole {
         playerName = playerNameIn;
     }
 
-    public Boolean getAlignment(){
+    public int getAlignment(){
         return alignment;
     }
 
-    public void setAlignment(Boolean alignmentIn){
+    public void setAlignment(int alignmentIn){
         alignment = alignmentIn;
     }
 
@@ -76,10 +74,10 @@ public abstract class SuperRole {
             case NAME:
                 return Value.equals(playerName);
             //getClassName should return the same as the name of the file/object of the given class
-            case Class:
+            case CLASS:
                 return Value.equals(this.getClassName());
             case ALIGNMENT:
-                return Value == alignment;
+                return (int) Value == alignment;
             case ALIVE:
                 return Value == alive;
         }
@@ -112,13 +110,13 @@ public abstract class SuperRole {
         Theory selfAlive = new Theory(this, Trait.ALIVE, alive);
         selfAlive.confirm();
 
-        Theory selfClass = new Theory(this, Trait.Class, this.getClassName());
+        Theory selfClass = new Theory(this, Trait.CLASS, this.getClassName());
         selfClass.confirm();
 
         //this will be for adding the values of self
         knowledge.get(playerName).put(Trait.ALIGNMENT, selfAlignment);
         knowledge.get(playerName).put(Trait.ALIVE, selfAlive);
-        knowledge.get(playerName).put(Trait.Class, selfClass);
+        knowledge.get(playerName).put(Trait.CLASS, selfClass);
 
 
     }

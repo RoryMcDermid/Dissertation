@@ -1,0 +1,14 @@
+check to see if gamestate is inconsistent
+
+identify set of possible lies
+
+try and see what pieces of information solve the largest number of unconfirmed theories
+
+
+
+
+1. see if two pieces of information directly oppose eachother (person A is imp, person B is imp)
+
+2. solve all possible information with a single piece of information (solve all logic chains)
+
+3. combine to see if two pieces of information that don't directly oppose solve to create info that does

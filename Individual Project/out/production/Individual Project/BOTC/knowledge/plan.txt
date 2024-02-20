@@ -1,5 +1,9 @@
 create a file with all the true information (basically just everyone's roles), this will be the grimore that the spy gets to see
-need to make individual files of what specific characters know
 
-next make connections between theories
+Have player input their name, along with names of other players, then their own attributes (class, alignment, etc), then any theories or connections that they have. 
 
+Use that data to give advice as to how they should proceed
+
+Advice will likely start with just filling chains of logic that are already there (if A then B, if B then C, A is true so B and C are as well)
+
+The work from there (if all but 2 players are confirmed townsfolk, other two are evil, sort of logic)

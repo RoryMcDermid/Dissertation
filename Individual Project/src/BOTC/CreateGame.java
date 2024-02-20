@@ -5,69 +5,66 @@ import BOTC.knowledge.Connection;
 import BOTC.knowledge.Theory;
 
 public class CreateGame {
+    GetInput input = new GetInput();
 
-    public void CreateGame(String[] args) {
+    public SuperRole[] CreateNewGame() {
         // args will be the number of intended players (currently 7)
 
         // SuperRole[] players = new SuperRole[Integer.parseInt(args[0])];
         // hardcoded for now
-        SuperRole[] players = new SuperRole[7];
 
-        String names[] = new String[7];
 
-        names[0] = "John";
-        names[1] = "Alan";
-        names[2] = "Horatio";
-        names[3] = "Leah";
-        names[4] = "Jim";
-        names[5] = "Bob";
-        names[6] = "Tim";
 
-        assign(players, names);
+        int numPlayers = Integer.parseInt(input.readIn("int", "How many players are in your game"));
+        SuperRole[] players = new SuperRole[numPlayers];
 
-        System.out.println(players[0].getPlayerName());
+        String[] names = new String[numPlayers];
 
-        Theory tTest = new Theory(players[0], Trait.NAME, players[0].getPlayerName());
+        names[0] = input.readIn("String", "Please enter your name");
 
-        System.out.println(tTest.checkTruth());
+        for (int i = 1; i < names.length; i++) {
+            names[i] = input.readIn("String", "Please enter the name of player " + (i+1) + "");
+        }
 
-        Theory tTest2 = new Theory(players[0], Trait.Class, players[0].getClassName());
+        assign(players, names, numPlayers);
 
-        // need some way to easily setup all of the basic truths (facts about self), as
-        // well as having some way to compare them
 
-        Connection cTest = new Connection(tTest, tTest2, 2);
-
-        System.out.println(cTest.isConnectionCorrect());
-
-        System.out.println(players[0].getFact(players[2].getPlayerName(), Trait.NAME).getPlayer().getPlayerName());
+        return players;
 
     }
 
-    public SuperRole[] assign(SuperRole[] players, String[] player_names) {
+    public SuperRole[] assign(SuperRole[] players, String[] player_names, int numPlayers) {
 
-        Theory[] names = new Theory[7];
+        ApplyRole applyRole = new ApplyRole();
+
+        Theory[] names = new Theory[numPlayers];
+
+        int self_alignment = Integer.parseInt(input.readIn("alignment", "What is your alignment"));
+
+        ClassName classNameUser = ClassName.valueOf(input.readIn("classname", "What is your class"));
+
+        players[0] = applyRole.giveRole(player_names[0], self_alignment, numPlayers, classNameUser);
+
+        for (int i = 1; i < players.length; i++) {
+            int player_alignment = Integer.parseInt(input.readIn("alignment", "What is player " + (i+1) + "'s alignment"));
+            ClassName classNamePlayer = ClassName.valueOf(input.readIn("classname", "What is player " + (i+1) + "'s class, if not known, enter \"UNKNOWN\" "));
+            players[i] = applyRole.giveRole(player_names[i], player_alignment, numPlayers, classNamePlayer);
+        }
 
         // hardcoded for now
-        players[0] = new BOTC.Roles.Townsfolk.Chef(player_names[0], true, 7);
-        players[1] = new BOTC.Roles.Minion.Spy(player_names[1], false, 7);
-        players[2] = new BOTC.Roles.Demon.Imp(player_names[2], false, 7);
-        players[3] = new BOTC.Roles.Townsfolk.Soldier(player_names[3], true, 7);
-        players[4] = new BOTC.Roles.Townsfolk.Virgin(player_names[4], true, 7);
-        players[5] = new BOTC.Roles.Townsfolk.Empath(player_names[5], true, 7);
-        players[6] = new BOTC.Roles.Townsfolk.Washerwoman(player_names[6], true, 7);
 
-        for (int i = 0; i < names.length; i++) {
+
+        for (int i = 0; i < numPlayers; i++) {
             names[i] = new Theory(players[i], Trait.NAME, players[i].getPlayerName());
         }
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < numPlayers; i++) {
             names[i].confirm();
         }
 
         // hardcoded as 7 for now
-        for (int i = 0; i < 7; i++) {
-            players[i].setBaseFacts(7, i, names);
+        for (int i = 0; i < numPlayers; i++) {
+            players[i].setBaseFacts(numPlayers, i, names);
         }
 
         return players;

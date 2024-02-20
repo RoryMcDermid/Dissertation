@@ -3,21 +3,21 @@ package BOTC.Roles.Townsfolk;
 import BOTC.Roles.SuperRole;
 import BOTC.Trait;
 
-//going to have the red herring added here instead, reduce amount of code written
+//going to have the red herring added here instead, reduce amount of code written, redherring will be the index of the targetted player
 
 public class FortuneTeller extends SuperRole {
 
-    public String redHerring;
+    public int redHerring;
 
-    public FortuneTeller(String playerNameIn, Boolean alignmentIn, int playerCount) {
+    public FortuneTeller(String playerNameIn, int alignmentIn, int playerCount) {
         super(playerNameIn, alignmentIn, playerCount);
     }
 
-    public String getRedHerring(){
+    public int getRedHerring(){
         return redHerring;
     }
 
-    public void setRedHerring(String redHerringIn){
+    public void setRedHerring(int redHerringIn){
         redHerring = redHerringIn;
     }
 

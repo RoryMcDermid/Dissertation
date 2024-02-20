@@ -1,2 +1,8 @@
-package BOTC;public enum Alignment {
+package BOTC;
+
+public enum Alignment {
+    GOOD,
+    EVIL,
+
+    UNKNOWN
 }
