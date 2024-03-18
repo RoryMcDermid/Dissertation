@@ -12,8 +12,12 @@ public class SetupConnections {
 
     GetInput input = new GetInput();
 
+    //NEED TO LOOK AT INDEXING THE HASHMAP, PROBABLY WON'T WORK
+    //see case of good implies chef, bad implies imp on one character
+
 
     //connections will work as the values in [x][y] will be connections that if true make this value in the theory array true
+
     //a connection has it's related theory, and the string which dictates whether it is being proved by that theory being true or false (the string says true then true, else false then false)
     public HashMap<String, Connection>[][] createConnections(SuperRole[] players, HashMap<String, Theory>[][] theories){
 
@@ -92,22 +96,82 @@ public class SetupConnections {
                 //this is the one being implied (theory 2)
                 int index2 = hashCheck(theories[i][1]);
                 Theory theory2 = new Theory(players[i], Trait.ALIGNMENT, tempAlign);
-                theories[i][1].put(String.valueOf(i), theory2);
+                theories[i][1].put(String.valueOf(index2), theory2);
 
 
-                String key = player + "," + trait.ordinal();
+                int index3 = connectionHashCheck(connections[i][1], i, 1);
+                String key = player + "," + trait.ordinal() + "," + index3;
                 connections[i][1].put(key, new Connection(theory1, theory2, correlation));
 
             }
 
+            while (true){
+                if(theories[i][3].containsKey("truth")){
+                    break;
+                }
 
+                String checkAlign = input.readIn("", "If you don't have any potential classes for player " + i + " type NEXT");
+
+
+
+                if(Objects.equals(checkAlign, "NEXT")){
+                    break;
+                }
+
+                int correlation = Integer.parseInt(input.readIn("correlation", "What is the relation these theories have? 0 (unrelated), 1 (a implies b is true) or 2 (a implies b is false)"));
+
+                String tempAlign = input.readIn("classname", "What is the potential class");
+
+                String newTheory = input.readIn("check", "Is there a new theory?");
+
+
+                int player = Integer.parseInt(input.readIn("int", "Which other player is being referenced (by index)"));
+                Trait trait = Trait.valueOf(input.readIn("trait", "Which trait is being referenced"));
+
+                Theory theory1 = null;
+
+                if(Objects.equals(newTheory, "true")){
+
+                    theory1 = makeTheory(players, player, trait);
+                    if(theory1 == null){
+                        continue;
+                    }
+                    //this is the one that implies (theory 1)
+                    int index = hashCheck(theories[player][trait.ordinal()]);
+                    theories[player][trait.ordinal()].put(String.valueOf(index), theory1);
+
+                    System.out.println("This theory has the index: " + String.valueOf(index));
+                }
+                else {
+                    String index = input.readIn("", "Which theory is being referenced");
+                    while(!theories[player][trait.ordinal()].containsKey(index)){
+                        index = input.readIn("", "Please enter a valid index");
+                    }
+                    theory1 = theories[player][trait.ordinal()].get(index);
+                }
+
+
+
+
+                //this is the one being implied (theory 2)
+                int index2 = hashCheck(theories[i][1]);
+                Theory theory2 = new Theory(players[i], Trait.CLASS, tempAlign);
+                theories[i][3].put(String.valueOf(index2), theory2);
+
+
+
+                int index3 = connectionHashCheck(connections[i][3], i, 3);
+                String key = player + "," + trait.ordinal() + "," + index3;
+                connections[i][3].put(key, new Connection(theory1, theory2, correlation));
+
+            }
 
         }
 
 
 
 
-        return null;
+        return connections;
     }
 
     //going to trust I won't make a theory that is already true
@@ -137,6 +201,15 @@ public class SetupConnections {
             checkVal++;
         }
         return checkVal;
+    }
+
+    public int connectionHashCheck(HashMap<String, Connection> connections, int playerId, int traitId){
+        int checkVal = 0;
+        while (connections.containsKey(playerId + "," + traitId + "," + String.valueOf(checkVal))){
+            checkVal++;
+        }
+        return checkVal;
+
     }
 
 }

@@ -1,5 +1,9 @@
 package BOTC.knowledge;
 
+import BOTC.Trait;
+
+import java.util.*;
+
 public class Connection {
 
     private Theory theory1;
@@ -65,7 +69,11 @@ public class Connection {
         this.relation = relation;
     }
 
-    public void setRelationAndConfirmed(int relation, boolean confirmed){
+    public int getRelation(){
+        return relation;
+    }
+
+    public void setRelationAndConfirmed(int relation, boolean confirmed) {
         this.relation = relation;
         this.confirmed = confirmed;
     }
@@ -96,4 +104,119 @@ public class Connection {
 
 
     }
+
+    //returns true if the secondConnection cannot exist along with this one
+    //instances where this is the case:
+    //both have the same theory 2, but different values (Bob is an imp, Bob is a chef)
+    //both have the same theory 2 and values, but different relations (A implies Bob is an imp, B implies Bob isn't an imp)
+    public boolean areIncongruent(Connection secondConnection){
+        if((theory2.getPlayer() == secondConnection.getTheory2().getPlayer()) && (theory2.getVariable() == secondConnection.getTheory2().getVariable())){
+            //different values, this works with basic testing
+            if(theory2.getValue() != secondConnection.getTheory2().getValue()){
+                return true;
+            }
+
+            //this one below may not be correct
+            //same value on both theories, different relations
+            if((theory1.getValue() == secondConnection.getTheory1().getValue()) && (theory2.getValue() == secondConnection.getTheory2().getValue()) && (relation != secondConnection.getRelation())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //needs to get all connections linked to this one and return it
+    //go through all connections, check their theory1 for this connection's theory2, then run this on all of those new connections
+    //pop this connection/connections to be looked at from the connections passed to stop endless loops?
+    public ReturnObject getSubsequent(HashMap<String, Connection>[][] connectionsIn, HashMap<String, Connection> returnValues, int selfX, int selfY, String selfKey){
+
+        HashMap<String, Connection>[][] connections = deepCopy(connectionsIn);
+
+
+        returnValues.put(String.valueOf(hashCheck(returnValues)), connections[selfX][selfY].get(selfKey));
+        connections[selfX][selfY].remove(selfKey);
+
+
+        for (int i = 0; i < connections.length; i++) {
+            for (int j = 0; j < connections[i].length; j++) {
+                Set<Map.Entry<String, Connection>> entrySet = new HashSet<>(connections[i][j].entrySet());
+
+                for (Map.Entry<String, Connection> entry : entrySet) {
+                    if (entry.getValue().getTheory1() == theory2) {
+
+//                        returnValues.put(String.valueOf(hashCheck(returnValues)), entry.getValue());
+//                        entry.getValue().print();
+                        // Remove the entry from the original map
+
+//                        connections[i][j].remove(entry.getKey());
+
+                        ReturnObject getSubs = entry.getValue().getSubsequent(connections, returnValues, i, j, entry.getKey());
+
+                        returnValues = getSubs.getReturnValues();
+                        connections = getSubs.getConnections();
+                    }
+                }
+
+            }
+        }
+
+        return new ReturnObject(returnValues, connections);
+    }
+
+
+    //what about when a connection implies that the next is false? Figure out example
+    //returns true if all are congruent
+    public boolean areSubsequentCongruent(Connection secondConnection, HashMap<String, Connection>[][] connections, int x1, int y1, String key1, int x2, int y2, String key2){
+        HashMap<String, Connection> returnValues = new HashMap<>();
+        HashMap<String, Connection> selfSubs = getSubsequent(connections, returnValues, x1, y1, key1).getReturnValues();
+        HashMap<String, Connection> secondSubs = secondConnection.getSubsequent(connections, returnValues, x2, y2, key2).getReturnValues();
+
+
+        for (Map.Entry<String, Connection> selfEntry : selfSubs.entrySet()){
+//            selfEntry.getValue().print();
+            for (Map.Entry<String, Connection> secondEntry : secondSubs.entrySet()){
+//                secondEntry.getValue().print();
+                if(selfEntry.getValue().areIncongruent(secondEntry.getValue())){
+                    System.out.println(selfEntry.getValue().getTheory1().getVariable() + ":" + selfEntry.getValue().getTheory1().getValue() + "," + selfEntry.getValue().getTheory2().getVariable() + ":" + selfEntry.getValue().getTheory2().getValue());
+                    System.out.println(secondEntry.getValue().getTheory1().getVariable() + ":" + secondEntry.getValue().getTheory1().getValue() + "," + secondEntry.getValue().getTheory2().getVariable() + ":" + secondEntry.getValue().getTheory2().getValue());
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private int hashCheck(HashMap<String, Connection> connections){
+        int checkVal = 0;
+        while (connections.containsKey(String.valueOf(checkVal))){
+            checkVal++;
+        }
+        return checkVal;
+    }
+
+    private HashMap<String, Connection>[][] deepCopy(HashMap<String, Connection>[][] original) {
+        HashMap<String, Connection>[][] copy = new HashMap[original.length][];
+
+        for (int i = 0; i < original.length; i++) {
+            copy[i] = new HashMap[original[i].length];
+            for (int j = 0; j < original[i].length; j++) {
+                copy[i][j] = new HashMap<>(original[i][j]);
+            }
+        }
+
+        return copy;
+    }
+
+    public void print(){
+        theory1.print();
+        theory2.print();
+    }
+
+    public boolean contains(Theory input){
+        if((theory1 == input) || (theory2 == input)){
+            return true;
+        }
+        return false;
+    }
+
 }

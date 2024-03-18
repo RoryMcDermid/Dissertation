@@ -12,20 +12,27 @@ public class Main {
 
     public static void main(String[] args) {
 
-        CreateGame play = new CreateGame();
+//        CreateGame play = new CreateGame();
+//
+//        SuperRole[] players = play.CreateNewGame();
+//
+//
+//        SetupTheories theorySetup = new SetupTheories();
+//
+//        HashMap<String, Theory>[][] theories = theorySetup.activate(players);
+//
+//
+//        SetupConnections connectionSetup = new SetupConnections();
+//
+//        HashMap<String, Connection>[][] connections =  connectionSetup.createConnections(players, theories);
 
-        SuperRole[] players = play.CreateNewGame();
+//        Test test = new Test();
+//
+//        test.shortTest();
 
+        Results results = new Results();
 
-        SetupTheories theorySetup = new SetupTheories();
-
-        HashMap<String, Theory>[][] theories = theorySetup.activate(players);
-
-
-        SetupConnections connectionSetup = new SetupConnections();
-
-        HashMap<String, Connection>[][] connections =  connectionSetup.createConnections(players, theories);
-
+        results.test();
 
     }
 }

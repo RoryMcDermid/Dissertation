@@ -55,6 +55,17 @@ public class Theory {
         return value;
     }
 
+    public boolean isEqual(Theory secondTheory){
+        if(secondTheory.getPlayer() == this.getPlayer()){
+            if(secondTheory.getVariable() == this.getVariable()){
+                if(secondTheory.getValue() == this.getValue()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public SuperRole getPlayer() {
         return player;
     }
@@ -66,6 +77,10 @@ public class Theory {
     //this is for when a theory is 100% correct
     public void confirm(){
         confirmed = true;
+    }
+
+    public void print(){
+        System.out.println(player.getPlayerName() + ":" + variable.toString() + ":" + value);
     }
 
 }
