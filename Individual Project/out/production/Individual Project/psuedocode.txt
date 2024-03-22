@@ -1,0 +1,113 @@
+Single Step:
+n = 1
+firstStepDemon = false
+while (Demon_Found != true):
+    check player n and n+1
+    if pair != Demon:
+        if firstStepDemon == true:
+            player n - 1 = Demon
+            break
+    else if pair == Demon:
+        if firstStepDemon == true:
+            player n = Demon
+            break
+        if n == 1:
+            firstStepDemon = true
+        else:
+            player n+1 = Demon
+            break
+    n++
+
+Double Step:
+
+n = 1
+townsfolkNumber = -1
+firstStepDemon = false
+while (Demon_Found != true):
+    check player n and n+1
+    if pair != Demon:
+        townsfolkNumber = n
+    else if pair == Demon:
+        if townsfolkNumber == -1:
+            if (n and n+2) == Demon:
+                player n = Demon
+                break
+            else:
+                player n+1 = Demon
+                break
+        else:
+            if (n and townsfolkNumber) == Demon:
+                player n = Demon
+                break
+            else:
+                player n+1 = Demon
+                break
+    n = n + 2
+
+
+
+Double Step W/Herring:
+
+check self and player 1
+if pair == demon:
+    check player 2 and 3
+    if pair == demon:
+        check player 1 and player 4
+        if pair == demon: //self not herring, player 1 possible demon
+            check self and player 2
+            if pair == demon:
+                player 2 possible demon
+                break
+            else:
+                player 3 possible demon
+        else: //self red herring
+            check player 1 and 2
+            if pair == demon:
+                player 2 is demon
+                break
+            else:
+                player 3 is demon
+                break
+    else:
+        check player 1 and 2
+        if pair == demon:
+            check self and player 2
+            if pair == demon: //self red herring
+                player 1 is demon
+                break
+            else: //self not herring
+                player 1 potential demon
+                check pairs until you find one that pings
+                check self and player n
+                if pair == demon:
+                    player 1 and n are potential demons
+                    break
+                else:
+                    player 1 and n + 1 are potential demons
+                    break
+        else://self herring
+            check pairs until you find one that pings
+            check player 1 and n
+            if pair == demon:
+                player n is demon
+                break
+            else:
+                player n + 1 is demon
+                break
+
+else:
+    check pairs until you find one that pings
+    check self and player n, as well as self and n + 1
+    if both pairs == demon:
+        player n and n + 1 are potential demons
+        break
+    else:
+        remember which player is a demon (as j)
+        check pairs until you find one that pings
+        check self and player n
+        if pair == demon:
+            player n and j are potential demons
+            break
+        else:
+            player n + 1 and j are potential demons
+            break
